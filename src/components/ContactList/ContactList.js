@@ -1,0 +1,17 @@
+import { v4 as uuidv4 } from 'uuid';
+import s from './ContactList.module.css';
+
+export default function ContactList({ contacts, onDeleteContact }) {
+  return (
+    <ul>
+      {contacts.map(({ name, number, id }) => (
+        <li className={s.item} key={uuidv4()}>
+          <p>
+            {name} : {number}
+          </p>
+          <button onClick={() => onDeleteContact(id)}>Delete</button>
+        </li>
+      ))}
+    </ul>
+  );
+}
