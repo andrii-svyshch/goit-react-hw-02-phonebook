@@ -1,17 +1,21 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import s from './ContactForm.module.css';
 
 class ContactForm extends Component {
+  static defaultProps = {
+    initialName: '',
+    initialNumber: '',
+  };
+
+  static propTypes = {
+    initialName: PropTypes.string.isRequired,
+    initialNumber: PropTypes.string.isRequired,
+  };
+
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
-    filter: '',
-    name: '',
-    number: '',
+    name: this.props.initialName,
+    number: this.props.initialNumber,
   };
 
   handleNameChange = e => {
@@ -20,9 +24,7 @@ class ContactForm extends Component {
   };
 
   handleSubmit = e => {
-    const { name } = this.state;
     e.preventDefault();
-    this.setState({ contacts: { name } });
     this.props.onSubmit(this.state);
     this.reset();
   };
